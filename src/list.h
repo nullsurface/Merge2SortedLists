@@ -13,5 +13,4 @@ struct ListNode* mergeTwoLists(struct ListNode*, struct ListNode*);
 
 // Print a list
 void print(ListNode*);
-
 #endif

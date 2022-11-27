@@ -3,47 +3,56 @@
 #include <stdio.h>
 
 struct ListNode* mergeTwoLists(struct ListNode* list1, struct ListNode* list2) {
-    ListNode* merged_list = malloc(sizeof(ListNode));
-    ListNode* curr_node = merged_list;
+    ListNode* list2_root = list2;
+    ListNode* last_node = NULL;
+    
+    if (!list2 && list1)
+	list2_root = list1;
 
     while (list1 && list2) {
-        if (list1->val < list2->val) {
-            curr_node->next = malloc(sizeof(ListNode));
-            curr_node->val = list1->val;
-            curr_node->next->val = list2->val;
-        } else {
-            curr_node->next = malloc(sizeof(ListNode));
-            curr_node->val = list2->val;
-            curr_node->next->val = list1->val;
-        }
-        
-        curr_node->next->next = malloc(sizeof(ListNode));
-        curr_node = curr_node->next->next;
-        list1 = list1->next;
-        list2 = list2->next;
+	if (list1->val > list2->val) {
+	    last_node = list2;
+	    list2 = list2->next;
+	} else {
+	    if (last_node) {
+		last_node->next = list1;
+		list1 = list1->next;
+		last_node->next->next = list2;
+		last_node = last_node->next;
+	    } else {
+		list2_root = list1;
+		list1 = list1->next;
+		list2_root->next = list2;
+		last_node = list2_root;
+	    }
+
+	}
+	    
     }
 
-    while(list1) {
-        curr_node->val = list1->val;
-        curr_node->next = malloc(sizeof(ListNode));
-        curr_node = curr_node->next;
-    }
-    
-    while(list2) {
-        curr_node->val = list2->val;
-        curr_node->next = malloc(sizeof(ListNode));
-        curr_node = curr_node->next;
+    if (list1 || list2) {
+	if (list1) {
+	    if (last_node)
+		last_node->next = list1;
+	} else {
+	    if (list2) {
+		if (last_node)
+		    last_node->next = list2;
+	    }
+	}
     }
 
-
-    return merged_list;
+    return list2_root;
 }
 
 void print(ListNode* list) {
     printf("[");
     while(list) {
-        printf("%d, ", list->val);
+	if (list->next)
+	    printf("%d, ", list->val);
+	else
+	    printf("%d]\n", list->val);
+
         list = list->next;
     }
-    printf("]\n");
 }
