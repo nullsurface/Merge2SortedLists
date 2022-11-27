@@ -9,7 +9,13 @@ struct ListNode {
 typedef struct ListNode ListNode;
 
 // Merges two sorted lists
-struct ListNode* mergeTwoLists(struct ListNode*, struct ListNode*);
+ListNode* mergeTwoLists(ListNode*, ListNode*);
+
+// Merges two sorted list into a provided third list recursively
+ListNode* merge(ListNode*, ListNode*, ListNode*);
+
+// Append List
+ListNode* append_list(ListNode*, ListNode*);
 
 // Print a list
 void print(ListNode*);
