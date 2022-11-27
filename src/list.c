@@ -43,7 +43,7 @@ void print(ListNode* list) {
 	if (list->next)
 	    printf("%d, ", list->val);
 	else
-	    printf("%d]", list->val);
+	    printf("%d]\n", list->val);
 
         list = list->next;
     }

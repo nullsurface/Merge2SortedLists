@@ -8,17 +8,23 @@ int main() {
     list2 = malloc(sizeof(ListNode));
     index1 = list1;
     index2 = list2;
-    int arr1[5] = {1, 2, 4, 5, 9};
+    int arr1[7] = {1, 2, 4, 5, 9, 50, 80};
     int arr2[5] = {3, 20, 22, 23, 25};
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 7; i++) {
         index1->val = arr1[i];
         index1->next = malloc(sizeof(ListNode));
+
+	if (i < 6) {
+	    index1 = index1->next;
+	}
+    }
+
+    for (int i = 0; i < 5; i++) {
         index2->val = arr2[i];
         index2->next = malloc(sizeof(ListNode));
 
 	if (i < 4) {
-	    index1 = index1->next;
 	    index2 = index2->next;
 	}
     }
